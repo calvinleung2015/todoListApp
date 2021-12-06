@@ -131,5 +131,5 @@ if (port == null || port == "") {
 }
 
 app.listen(port, function(){
-    console.log("Server has started successfully.");
+    console.log("Server has started successfully..");
 });
