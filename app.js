@@ -49,14 +49,18 @@ const List = mongoose.model("List", listSchema);
 app.get("/", function(req, res){
     Item.find({}, function(err, foundItems){
         if (foundItems.length === 0){
-            Item.insertMany(defaultItems, function(err){
-                ordered:false
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Successfully saved default items to DB.");
-                }
-            });
+            try {
+                Item.insertMany(defaultItems, function(err){
+                    ordered:false
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("Successfully saved default items to DB.");
+                    }
+                });
+            } catch (e) {
+                print(e);
+            }
             res.redirect("/");
         } else {
             res.render("list", {listTitle: "Today", newListItems: foundItems});
