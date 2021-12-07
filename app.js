@@ -51,7 +51,6 @@ app.get("/", function(req, res){
         if (foundItems.length === 0){
             try {
                 Item.insertMany(defaultItems, function(err){
-                    ordered:false
                     if (err) {
                         console.log(err);
                     } else {
