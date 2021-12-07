@@ -50,6 +50,7 @@ app.get("/", function(req, res){
     Item.find({}, function(err, foundItems){
         if (foundItems.length === 0){
             Item.insertMany(defaultItems, function(err){
+                ordered:false
                 if (err) {
                     console.log(err);
                 } else {
