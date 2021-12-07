@@ -1,3 +1,5 @@
+//jshint esversion:6
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -6,10 +8,11 @@ const _ = require("lodash");
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({entended: true}))
-app.use(express.static("public"))
 
-mongoose.connect("mongodb+srv://Calvin_Leung:tnzjko129q@cluster0.aavkx.mongodb.net/todolistDB");
+app.use(bodyParser.urlencoded({entended: true}));
+app.use(express.static("public"));
+
+mongoose.connect("mongodb+srv://Calvin_Leung:tnzjko129q@cluster0.aavkx.mongodb.net/todolistDB",{useNewUrlParser: true});
 
 const itemsSchema = {
     name: String
@@ -21,15 +24,15 @@ const Item = mongoose.model(
 );
 
 const item1 = new Item({
-    name: "Welcome"
+    name: "Welcome to your todolist!"
 });
 
 const item2 = new Item({
-    name: "hello"
+    name: "Hit the + button to add a new item."
 })
 
 const item3 = new Item({
-    name: "yes!"
+    name: "<-- Hit this to delete an item."
 })
 
 const defaultItems = [item1, item2, item3]; 
@@ -74,7 +77,7 @@ app.get("/:customListName", function(req, res){
                 res.redirect("/" + customListName);
             } else {
                 //Show an existing list
-                res.render("list", {listTitle: foundList.name, newListItems: foundList.items})
+                res.render("list", {listTitle: foundList.name, newListItems: foundList.items});
             }
             
         }
